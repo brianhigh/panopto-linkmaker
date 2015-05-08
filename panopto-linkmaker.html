@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Panopto Link Maker</title?
+</head>
+<body>
+
+<p>Enter Panopto Viewer Link:</p>
+
+<p><input type="text" value="" id="textbox"></p>
+
+<p>Click the button to get links to other vieing options.</p>
+
+<button onclick="getLinks()">Get links</button>
+
+<p id="orig"></p>
+<p id="dnld"></p>
+<p id="view"></p>
+
+<script>
+function getLinks() {
+    var vid = document.getElementById("textbox").value;
+    var id = vid.split("="); 
+    var url = vid.split("/", 4);
+    var urlstr = url.toString().replace(/,/g, '/')
+
+    origstr = "Panopto Viewer"
+    var origlnk = origstr.link(vid);
+    document.getElementById("orig").innerHTML = origlnk;
+
+    dnldstr = "MP4 Download"
+    var dnldlnk = dnldstr.link(urlstr + "/Podcast/Download/" + id[1] + ".mp3");
+    document.getElementById("dnld").innerHTML = dnldlnk;
+
+    viewstr = "MP4 View Stream"
+    var viewlnk = dnldstr.link(urlstr + "/Podcast/Stream/" + id[1] + ".mp3");
+    document.getElementById("view").innerHTML = viewlnk;
+}
+</script>
+
+
+</body>
+</html>
