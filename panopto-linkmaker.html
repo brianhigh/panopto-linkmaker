@@ -27,13 +27,13 @@ function getLinks() {
     var id = vid.split("="); 
     var url = vid.split("/", 4);
     var urlstr = url.toString().replace(/,/g, '/')
-    origstr = "Panopto Viewer"
+    origstr = document.getElementById("orig").innerHTML
     var origlnk = origstr.link(vid);
     document.getElementById("orig").innerHTML = origlnk;
-    dnldstr = "MP4 Podcast Download"
+    dnldstr = document.getElementById("dnld").innerHTML
     var dnldlnk = dnldstr.link(urlstr + "/Podcast/Download/" + id[1] + ".mp4");
     document.getElementById("dnld").innerHTML = dnldlnk;
-    viewstr = "MP4 Podcast View Stream"
+    viewstr = document.getElementById("view").innerHTML
     var viewlnk = viewstr.link(urlstr + "/Podcast/Stream/" + id[1] + ".mp4");
     document.getElementById("view").innerHTML = viewlnk;
 }
