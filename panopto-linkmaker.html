@@ -15,9 +15,9 @@
 
 <p>
 <ul>
-    <li id="orig"></li>
-    <li id="dnld"></li>
-    <li id="view"></li>
+    <li id="orig">Panopto Viewer</li>
+    <li id="dnld">MP4 Download</li>
+    <li id="view">MP4 View Stream</li>
 </ul>
 </p>
 
@@ -27,17 +27,14 @@ function getLinks() {
     var id = vid.split("="); 
     var url = vid.split("/", 4);
     var urlstr = url.toString().replace(/,/g, '/')
-
     origstr = "Panopto Viewer"
     var origlnk = origstr.link(vid);
     document.getElementById("orig").innerHTML = origlnk;
-
     dnldstr = "MP4 Download"
     var dnldlnk = dnldstr.link(urlstr + "/Podcast/Download/" + id[1] + ".mp3");
     document.getElementById("dnld").innerHTML = dnldlnk;
-
     viewstr = "MP4 View Stream"
-    var viewlnk = dnldstr.link(urlstr + "/Podcast/Stream/" + id[1] + ".mp3");
+    var viewlnk = viewstr.link(urlstr + "/Podcast/Stream/" + id[1] + ".mp3");
     document.getElementById("view").innerHTML = viewlnk;
 }
 </script>
