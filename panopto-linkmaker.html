@@ -21,8 +21,9 @@
 </ul>
 </p>
 
-<p><textarea cols="50" rows="4" id="embedcode"></textarea></p>
-
+<p id="embedcodelabel"></p>
+<p id="embedcode"></p>
+<p id="embedlabel"></p>
 <p id="embed"></p>
 
 <hr>
@@ -45,8 +46,10 @@ function getLinks() {
     document.getElementById("view").innerHTML = viewlnk;
     var embedlnk = urlstr + "/Pages/Embed.aspx?id=" + id[1] + "&v=1";
     var embedifm = '<iframe src="' + embedlnk + '" width="720" height="480" frameborder="0"></iframe>'
+    document.getElementById("embedcodelabel").innerHTML = 'Embedded viewer HTML code:';
+    document.getElementById("embedcode").innerHTML = '<textarea cols="50" rows="4">' + embedifm + '</textarea>';
+    document.getElementById("embedlabel").innerHTML = 'Embedded viewer:';
     document.getElementById("embed").innerHTML = embedifm;
-    document.getElementById("embedcode").innerHTML = embedifm;
 }
 </script>
 
