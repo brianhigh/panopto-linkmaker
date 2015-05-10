@@ -7,6 +7,7 @@
 </head>
 <body>
 <h1>Panopto Link Maker</h1>
+
 <p>Enter Panopto Viewer Link:</p>
 
 <p><input type="text" value="" id="textbox"></p>
@@ -35,6 +36,7 @@
 
 <script>
 function validate(url) {
+    // Check that input url matches a generic url pattern
     var pattern = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
     if (pattern.test(url)) {
         return true;
@@ -44,39 +46,48 @@ function validate(url) {
 }
 
 function getLinks() {
+    // Check that input url matches a generic url pattern
     var vidurl = document.getElementById("textbox").value;
     if (validate(vidurl) != true) {
-        return;
+        return false;
     }
 
+    // Parse url into a base path and a video id
     var lnkarr = vidurl.split("/Pages/Viewer.aspx?id=")
     var urlstr = lnkarr[0]
     var id = lnkarr[1]
     
+    // Check for hexadecimal id string
     var idpattern = /^[0-9a-f-]+$/;
     if (idpattern.test(id) != true) {
         alert("Link is not valid!");
         return false;
     } 
 
+    // Show link for original Panopto Viewer link
     origstr = document.getElementById("orig").innerHTML;
     var origlnk = origstr.link(vidurl);
     document.getElementById("orig").innerHTML = origlnk;
     
+    // Show link for dowloading the "podcast" MP4 video file
     dnldstr = document.getElementById("dnld").innerHTML;
     var dnldlnk = dnldstr.link(urlstr + "/Podcast/Download/" + id + ".mp4");
     document.getElementById("dnld").innerHTML = dnldlnk;
     
+    // Show link for viewing the "podcast" MP4 "stream"
     viewstr = document.getElementById("view").innerHTML;
     var viewlnk = viewstr.link(urlstr + "/Podcast/Stream/" + id + ".mp4");
     document.getElementById("view").innerHTML = viewlnk;
     
+    // Construct HTML code for embedded viewer
     var embedlnk = urlstr + "/Pages/Embed.aspx?id=" + id + "&v=1";
     var embedifm = '<iframe src="' + embedlnk + '" width="720" height="480" frameborder="0"></iframe>'
     
+    // Show HTML code for embedding the video into a web page
     document.getElementById("embedcodelabel").innerHTML = 'Embedded viewer HTML code:';
     document.getElementById("embedcode").innerHTML = '<textarea cols="50" rows="4">' + embedifm + '</textarea>';
     
+    // Show embedded video
     document.getElementById("embedlabel").innerHTML = 'Embedded viewer:';
     document.getElementById("embed").innerHTML = embedifm;
 }
