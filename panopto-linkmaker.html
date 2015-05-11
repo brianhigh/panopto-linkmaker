@@ -44,24 +44,19 @@ function validate(url) {
     // Check that input url matches regex pattern for valid url
     var pattern = /^https?:\/\/[\w:/.-]+\/Pages\/Viewer\.aspx\?id=[0-9a-f-]+$/;
     
-    if (pattern.test(url)) {
-        return true;
-    } 
-    alert("Link is not valid!");
-    return false;
+    if (pattern.test(url) !== true) {
+        alert("Link is not valid!");
+        return false;
+    }
+    else {
+        return true
+    }
 }
 
 function makeLink(elemid, link) {
-    try {
-        var str = document.getElementById(elemid).innerHTML;
-        var strlnk = str.link(link);
-        document.getElementById(elemid).innerHTML = strlnk;
-    }
-    catch(err) {
-        alert("Can't create link! " + err.stack);
-        return false;
-    }
-    return true;
+    var str = document.getElementById(elemid).innerHTML;
+    var strlnk = str.link(link);
+    document.getElementById(elemid).innerHTML = strlnk;
 }
 
 function getLinks() {
