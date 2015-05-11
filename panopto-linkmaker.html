@@ -60,7 +60,7 @@ function makeLink(elemid, link) {
 }
 
 function getLinks() {
-    // Check that input url matches a generic url pattern
+    // Check that input url is of required format
     var vidurl = document.getElementById("textbox").value;
     if (validate(vidurl) !== true) {
         return false;
