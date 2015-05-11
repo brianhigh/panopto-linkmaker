@@ -40,7 +40,7 @@
 function validate(url) {
     // Check that input url matches regex pattern for valid url per OWASP
     // https://www.owasp.org/index.php/OWASP_Validation_Regex_Repository
-    var pattern = /^((((https?|ftps?|gopher|telnet|nntp):\/\/)|(mailto:|news:))(%[0-9A-Fa-f]{2}|[-()_.!~*';\/?:@&=+$,A-Za-z0-9])+)([).!';\/?:,][[:blank:]])?$/;
+    var pattern = /^((((https?|ftps?|gopher|telnet|nntp):\/\/)|(mailto:|news:))(%[0-9A-Fa-f]{2}|[-()_.!~*';\/?:@&=+$,A-Za-z0-9])+)([).!';\/?:,][ \t])?$/;
     
     if (pattern.test(url)) {
         return true;
