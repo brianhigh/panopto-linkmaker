@@ -18,9 +18,11 @@
 
 <p>
 <ul>
-    <li id="orig">Panopto Viewer</li>
-    <li id="dnld">MP4 Podcast Download</li>
-    <li id="view">MP4 Podcast View Stream</li>
+    <li id="pnpt">Panopto Viewer</li>
+    <li id="vidn">MP4 Video Podcast Download</li>
+    <li id="view">MP4 Video Podcast View</li>
+    <li id="audn">MP3 Audio Podcast Download</li>
+    <li id="lstn">MP3 Audio Podcast Listen</li>
 </ul>
 </p>
 
@@ -36,9 +38,9 @@
 
 <script>
 function validate(url) {
-    // Check that input url matches: "A valid URL per the URL spec." (RFC 3986)
-    // Source: https://www.owasp.org/index.php/OWASP_Validation_Regex_Repository
-    var pattern = /^((((https?|ftps?|gopher|telnet|nntp)://)|(mailto:|news:))(%[0-9A-Fa-f]{2}|[-()_.!~*';/?:@&=+$,A-Za-z0-9])+)([).!';/?:,][[:blank:]])?$/;
+    // Check that input url matches regex pattern for valid url per RFC 3986
+    // Source: https://tools.ietf.org/html/rfc3986#page-50
+    var pattern = /^(([^:\/?#]+):)?(\/\/([^\/?#]*))?([^?#]*)(\?([^#]*))?(#(.*))?/;
     
     if (pattern.test(url)) {
         return true;
@@ -47,47 +49,55 @@ function validate(url) {
     return false;
 }
 
+function makeLink(elemid, link) {
+    try {
+        var str = document.getElementById(elemid).innerHTML;
+        var strlnk = str.link(link);
+        document.getElementById(elemid).innerHTML = strlnk;
+    }
+    catch(err) {
+        alert("Can't create link! " + err.stack);
+        return false;
+    }
+    return true;
+}
+
 function getLinks() {
     // Check that input url matches a generic url pattern
     var vidurl = document.getElementById("textbox").value;
-    if (validate(vidurl) != true) {
+    if (validate(vidurl) !== true) {
         return false;
     }
 
     // Parse url into a base path and a video id
-    var lnkarr = vidurl.split("/Pages/Viewer.aspx?id=")
-    var urlstr = lnkarr[0]
-    var id = lnkarr[1]
+    var lnkarr = vidurl.split("/Pages/Viewer.aspx?id=");
+    var urlstr = lnkarr[0];
+    var id = lnkarr[1];
     
     // Check for hexadecimal id string
-    var idpattern = /^[0-9a-f-]+$/;
-    if (idpattern.test(id) != true) {
+    var idpattern = /^[0-9a-f\-]+$/;
+    if (idpattern.test(id) !== true) {
         alert("Link is not valid!");
         return false;
     } 
 
-    // Show link for original Panopto Viewer link
-    origstr = document.getElementById("orig").innerHTML;
-    var origlnk = origstr.link(vidurl);
-    document.getElementById("orig").innerHTML = origlnk;
-    
-    // Show link for dowloading the "podcast" MP4 video file
-    dnldstr = document.getElementById("dnld").innerHTML;
-    var dnldlnk = dnldstr.link(urlstr + "/Podcast/Download/" + id + ".mp4");
-    document.getElementById("dnld").innerHTML = dnldlnk;
-    
-    // Show link for viewing the "podcast" MP4 "stream"
-    viewstr = document.getElementById("view").innerHTML;
-    var viewlnk = viewstr.link(urlstr + "/Podcast/Stream/" + id + ".mp4");
-    document.getElementById("view").innerHTML = viewlnk;
+    // Make links for video (mp4) and audio (mp3) download and streaming
+    makeLink("pnpt", vidurl);
+    makeLink("vidn", urlstr + "/Podcast/Download/" + id + ".mp4");
+    makeLink("view", urlstr + "/Podcast/Stream/" + id + ".mp4");
+    makeLink("audn", urlstr + "/Podcast/Download/" + id + ".mp3");
+    makeLink("lstn", urlstr + "/Podcast/Stream/" + id + ".mp3");
     
     // Construct HTML code for embedded viewer
     var embedlnk = urlstr + "/Pages/Embed.aspx?id=" + id + "&v=1";
-    var embedifm = '<iframe src="' + embedlnk + '" width="720" height="480" frameborder="0"></iframe>'
+    var embedifm = '<iframe src="' + embedlnk + 
+        '" width="720" height="480" frameborder="0"></iframe>';
     
     // Show HTML code for embedding the video into a web page
-    document.getElementById("embedcodelabel").innerHTML = 'Embedded viewer HTML code:';
-    document.getElementById("embedcode").innerHTML = '<textarea cols="50" rows="4">' + embedifm + '</textarea>';
+    document.getElementById("embedcodelabel").innerHTML = 
+        'Embedded viewer HTML code:';
+    document.getElementById("embedcode").innerHTML = 
+        '<textarea cols="50" rows="4">' + embedifm + '</textarea>';
     
     // Show embedded video
     document.getElementById("embedlabel").innerHTML = 'Embedded viewer:';
