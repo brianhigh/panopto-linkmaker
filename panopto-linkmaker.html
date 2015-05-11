@@ -36,8 +36,10 @@
 
 <script>
 function validate(url) {
-    // Check that input url matches a generic url pattern
-    var pattern = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
+    // Check that input url matches: "A valid URL per the URL spec." (RFC 3986)
+    // Source: https://www.owasp.org/index.php/OWASP_Validation_Regex_Repository
+    var pattern = /^((((https?|ftps?|gopher|telnet|nntp)://)|(mailto:|news:))(%[0-9A-Fa-f]{2}|[-()_.!~*';/?:@&=+$,A-Za-z0-9])+)([).!';/?:,][[:blank:]])?$/;
+    
     if (pattern.test(url)) {
         return true;
     } 
