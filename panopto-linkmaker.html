@@ -38,9 +38,9 @@
 
 <script>
 function validate(url) {
-    // Check that input url matches regex pattern for valid url per RFC 3986
-    // Source: https://tools.ietf.org/html/rfc3986#page-50
-    var pattern = /^(([^:\/?#]+):)?(\/\/([^\/?#]*))?([^?#]*)(\?([^#]*))?(#(.*))?/;
+    // Check that input url matches regex pattern for valid url per OWASP
+    // https://www.owasp.org/index.php/OWASP_Validation_Regex_Repository
+    var pattern = /^((((https?|ftps?|gopher|telnet|nntp):\/\/)|(mailto:|news:))(%[0-9A-Fa-f]{2}|[-()_.!~*';\/?:@&=+$,A-Za-z0-9])+)([).!';\/?:,][[:blank:]])?$/;
     
     if (pattern.test(url)) {
         return true;
