@@ -76,13 +76,6 @@ function getLinks() {
     var urlstr = lnkarr[0];
     var id = lnkarr[1];
     
-    // Check for hexadecimal id string
-    var idpattern = /^[0-9a-f\-]+$/;
-    if (idpattern.test(id) !== true) {
-        alert("Link is not valid!");
-        return false;
-    } 
-
     // Make links for video (mp4) and audio (mp3) download and streaming
     makeLink("pnpt", vidurl);
     makeLink("vidn", urlstr + "/Podcast/Download/" + id + ".mp4");
