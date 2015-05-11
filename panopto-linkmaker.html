@@ -42,7 +42,7 @@
 <script>
 function validate(url) {
     // Check that input url matches regex pattern for valid url
-    var pattern = /^https?:\/\/[A-Za-z0-9:\/.\-]+\/Pages\/Viewer\.aspx\?id=[0-9a-f\-]+$/;
+    var pattern = /^https?:\/\/[\w:/.-]+\/Pages\/Viewer\.aspx\?id=[0-9a-f-]+$/;
     
     if (pattern.test(url)) {
         return true;
