@@ -67,7 +67,9 @@ function getLinks() {
     }
 
     // Parse url into a base path string and a video id
-    var [urlstr, id] = vidurl.split("/Pages/Viewer.aspx?id=");
+    var lnkarr = vidurl.split("/Pages/Viewer.aspx?id=");
+    var urlstr = lnkarr[0];
+    var id = lnkarr[1];
     
     // Make links for video (mp4) and audio (mp3) download and streaming
     makeLink("pnpt", vidurl);
