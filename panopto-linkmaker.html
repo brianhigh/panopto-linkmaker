@@ -10,7 +10,7 @@
 
 <p>Enter Panopto Viewer Link:</p>
 
-<p><input type="text" value="" id="textbox"></p>
+<p><input type="text" size="50" onClick="this.select();" value="" id="textbox"></p>
 
 <p>Click the button to get links to other viewing options.</p>
 
@@ -66,10 +66,8 @@ function getLinks() {
         return false;
     }
 
-    // Parse url into a base path and a video id
-    var lnkarr = vidurl.split("/Pages/Viewer.aspx?id=");
-    var urlstr = lnkarr[0];
-    var id = lnkarr[1];
+    // Parse url into a base path string and a video id
+    var [urlstr, id] = vidurl.split("/Pages/Viewer.aspx?id=");
     
     // Make links for video (mp4) and audio (mp3) download and streaming
     makeLink("pnpt", vidurl);
