@@ -3,18 +3,18 @@
 <head>
     <meta charset="utf-8">
     <title>Panopto Link Maker</title>
-	<link rel="stylesheet" media="screen" href="style.css">
+        <link rel="stylesheet" media="screen" href="style.css">
 </head>
 <body>
 <h1>Panopto Link Maker</h1>
 
 <p>Enter Panopto Viewer Link:</p>
 
-<p><input type="text" size="50" onClick="this.select();" value="" id="textbox"></p>
+<p><input type="text" size="50" onkeydown="if (event.keyCode == 13) document.getElementById('btnGetLinks').click()" onClick="this.select();" value="" id="textbox"></p>
 
 <p>Click the button to get links to other viewing options.</p>
 
-<p><button onclick="getLinks()">Get links</button></p>
+<p><button id="btnGetLinks" onclick="getLinks()">Get links</button></p>
 
 <p>
     <ul>
