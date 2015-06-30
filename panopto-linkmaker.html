@@ -55,10 +55,9 @@ function validate(url) {
     }
 }
 
-function makeLink(elemid, link) {
-    var str = document.getElementById(elemid).innerHTML;
-    var strlnk = str.link(link);
-    document.getElementById(elemid).innerHTML = strlnk;
+function makeLink(elemid, elemstr, link) {
+    // Replace element contents (string) with linked element contents
+    document.getElementById(elemid).innerHTML = elemstr.link(link);
 }
 
 function getLinks() {
@@ -74,11 +73,16 @@ function getLinks() {
     var id = lnkarr[1];
     
     // Make links for video (mp4) and audio (mp3) download and streaming
-    makeLink("pnpt", vidurl);
-    makeLink("vidn", urlstr + "/Podcast/Download/" + id + ".mp4");
-    makeLink("view", urlstr + "/Podcast/Stream/" + id + ".mp4");
-    makeLink("audn", urlstr + "/Podcast/Download/" + id + ".mp3");
-    makeLink("lstn", urlstr + "/Podcast/Stream/" + id + ".mp3");
+    var pnptstr = "Panopto Viewer";
+    var vidnstr = "MP4 Video Podcast Download";
+    var viewstr = "MP4 Video Podcast View";
+    var audnstr = "MP3 Audio Podcast Download";
+    var lstnstr = "MP3 Audio Podcast Listen";
+    makeLink("pnpt", pnptstr, vidurl);
+    makeLink("vidn", vidnstr, urlstr + "/Podcast/Download/" + id + ".mp4");
+    makeLink("view", viewstr, urlstr + "/Podcast/Stream/" + id + ".mp4");
+    makeLink("audn", audnstr, urlstr + "/Podcast/Download/" + id + ".mp3");
+    makeLink("lstn", lstnstr, urlstr + "/Podcast/Stream/" + id + ".mp3");
     
     // Construct HTML code for embedded viewer
     var embedlnk = urlstr + "/Pages/Embed.aspx?id=" + id + "&v=1";
